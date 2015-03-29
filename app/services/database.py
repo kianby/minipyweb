@@ -1,6 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+import hashlib
+import config
 import functools
 from config import DB_URL
 from playhouse.db_url import connect
@@ -19,6 +21,12 @@ def provide_db(func):
     return new_function
 
 
+def hash(value):
+    string = '%s%s' % (value, config.SALT)
+    dk = hashlib.sha256(string.encode())
+    return dk.hexdigest()
+
+
 @provide_db
 def setup(db):
     from app.models.user import User
@@ -26,5 +34,5 @@ def setup(db):
 
     # create admin user if user table is empty
     if User.select().count() == 0:
-        admin_user = User(username='admin', password='admin')
+        admin_user = User(username='admin', password=hash('admin'))
         admin_user.save()

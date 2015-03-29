@@ -6,6 +6,7 @@ import datetime
 import jwt
 import redis
 import config
+from app.services import database
 from app.models.user import User
 
 import logging
@@ -13,7 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 def __authenticate(username, password):
-    return User.get(User.username == username, User.password == password)
+    return User.get(User.username == username,
+                    User.password == database.hash(password))
 
 
 def __get_session_key(username, token):

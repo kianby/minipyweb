@@ -7,6 +7,7 @@ DEBUG = True
 # SESSION
 JWTSECRET = 'ilfaittropchaudpourtravailler'
 SESSION_TIMEOUT = 300
+SALT = 'panzani'
 
 # HTTP
 HTTP_HOST = '0.0.0.0'

@@ -4,6 +4,7 @@
 import inspect
 from app.services import auth
 
+
 class InjectPlugin(object):
 
     name = 'inject'
@@ -23,8 +24,6 @@ class InjectPlugin(object):
             moreargs['db'] = None
         if 'auth' in args:
             moreargs['auth'] = auth
-        if 'logger' in args:
-            moreargs['logger'] = logger
 
         if moreargs:
             def wrapper(*args, **kwargs):

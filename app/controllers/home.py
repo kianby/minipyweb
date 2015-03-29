@@ -3,9 +3,12 @@
 
 from bottle import route, request, abort
 
+import logging
+logger = logging.getLogger(__name__)
+
 
 @route('/heartbeat', method='GET')
-def heartbeat(logger):
+def heartbeat():
     logger.info('hearbeat level INFO')
     logger.debug('hearbeat level DEBUG')
     return "OK"

@@ -7,6 +7,7 @@ import logging
 import bottle
 from bottle import run, install
 
+
 # add current and parent path to syspath
 currentPath = os.path.dirname(__file__)
 parentPath = os.path.abspath(os.path.join(currentPath, os.path.pardir))
@@ -18,6 +19,7 @@ for path in paths:
 # configure logging
 
 import config
+
 
 def configure_logging(level):
     root_logger = logging.getLogger()
@@ -57,4 +59,4 @@ bottle.debug(config.DEBUG)
 # start bottle
 if __name__ == '__main__':
     logger.info('Server started')
-    run(app=app, host=config.HTTP_SERVER, port=config.HTTP_PORT)
+    run(app=app, host=config.HTTP_HOST, port=config.HTTP_PORT)

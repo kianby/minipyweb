@@ -4,20 +4,21 @@
 import calendar
 import datetime
 import jwt
+import redis
 import config
 from app.models.user import User
-from app.models.session import Session
 
 import logging
 logger = logging.getLogger(__name__)
 
+
 def __authenticate(username, password):
     return User.get(User.username == username, User.password == password)
 
-def __cleanSessions(self):
-    """Find and remove expired sessions"""
-    when = datetime.datetime.utcnow() - self.idle_timeout
-    db.sessions.remove({'used': {'$lt': when}})
+
+def __get_session_key(username, token):
+    return 'SESSION_%s_%s' % (username, token)
+
 
 def login(username, password):
     try:
@@ -28,20 +29,23 @@ def login(username, password):
             token = jwt.encode({'user': username, 'at': at},
                                config.JWTSECRET,
                                algorithm='HS256').decode()
-            new_session = Session(username=username, token=token, login=now,
-                    last_used=now)
-            new_session.save()
+            # store session into REDIS
+            r = redis.StrictRedis(host=config.REDIS_HOST,
+                                  port=config.REDIS_PORT)
+            r.setex(__get_session_key(username, token),
+                    config.SESSION_TIMEOUT, now)
             return token
     except:
         logger.exception('login failed')
     return None
 
+
 def validate(username, token):
-    self.__cleanSessions()
-    session = self.db.sessions.find_one({'username': username,
-                                         'token': token})
+    r = redis.StrictRedis(host=config.REDIS_HOST, port=config.REDIS_PORT)
+    session = r.get(__get_session_key(username, token))
     # update session last used
     if session:
         now = datetime.datetime.utcnow()
-        self.db.sessions.update(session, {'$set': {'used': now}})
+        r.setex(__get_session_key(username, token),
+                config.SESSION_TIMEOUT, now)
     return session

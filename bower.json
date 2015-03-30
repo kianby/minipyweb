@@ -1,0 +1,10 @@
+{
+ "name": "minipyweb-ui",
+ "version": "0.0.1",
+ "location": "public/lib",
+ "dependencies": {
+    "backbone": "1.1.2",
+    "requirejs": "2.1.16",
+    "bootstrap": "latest"
+  }
+}

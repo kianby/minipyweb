@@ -3,7 +3,6 @@
 
 from bottle import route, request, abort, redirect, static_file
 
-import os
 import logging
 logger = logging.getLogger(__name__)
 
@@ -27,8 +26,6 @@ def home():
 
 @route('/app/<filepath:path>')
 def static(filepath):
-    logger.info('Request ' + filepath)
-    logger.info(os.getcwd())
     return static_file(filepath, root='public/')
 
 

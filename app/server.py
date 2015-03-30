@@ -7,7 +7,6 @@ import logging
 import bottle
 from bottle import run, install
 
-
 # add current and parent path to syspath
 currentPath = os.path.dirname(__file__)
 parentPath = os.path.abspath(os.path.join(currentPath, os.path.pardir))

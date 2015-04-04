@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     bower: {
       install: {
         options: {
-          targetDir: 'public/lib',
+          targetDir: 'public/app/lib',
           layout: 'byType',
           install: true,
           verbose: true,

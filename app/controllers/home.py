@@ -26,7 +26,7 @@ def home():
 
 @route('/app/<filepath:path>')
 def static(filepath):
-    return static_file(filepath, root='public/')
+    return static_file(filepath, root='public/app/')
 
 
 @route('/login', method='POST')

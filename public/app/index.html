@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MiniPyWeb</title>
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
+    <script src="lib/headjs/head.min.js" data-headjs-load="js/main.js"></script>
+</head>
+<body>
+
+    <!-- /*======= Barre de navigation  =======*/ -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">MiniPyWeb</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- /*======= Formulaire d’authentification =======*/ -->
+    <script type="text/template" id="login_form_template" >
+        <h3>Login :</h3>
+        <input name="email" type="text" placeholder="email"/><br>
+        <input name="password" type="password" placeholder="password"/><br>
+        <a href="#" class="btn btn-primary">Login</a>
+        <a href="#" class="btn btn-inverse">Logoff</a><br>
+        <b>{{message}} {{firstName}} {{lastName}}</b>
+    </script>
+    <form class=”container” id=”login_form” >
+    </form>
+
+    <!-- /*======= Application principale =======*/ -->
+    <div id="container">Loading...</div>
+
+</body>
+</html>

@@ -1,10 +1,13 @@
 {
- "name": "minipyweb-ui",
- "version": "0.0.1",
- "location": "public/lib",
- "dependencies": {
+  "name": "minipyweb-ui",
+  "version": "0.0.1",
+  "location": "public/app/lib",
+  "dependencies": {
     "backbone": "1.1.2",
-    "requirejs": "2.1.16",
     "bootstrap": "latest"
+  },
+  "devDependencies": {
+    "headjs": "~1.0.3",
+    "mustache": "~2.0.0"
   }
 }

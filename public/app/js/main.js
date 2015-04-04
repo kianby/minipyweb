@@ -1,24 +1,42 @@
-// libs
-head.load("lib/jquery/jquery.js")
-head.load("lib/underscore/underscore.js")
-head.load("lib/backbone/backbone.js")
-head.load("lib/mustache/mustache.js")
-head.load("lib/bootstrap/bootstrap.js")
+//the require library is configuring paths
+require.config({
+    // define shim for old browsers
+    shim: {
+        'underscore': {
+            exports: '_'
+        },
+        'backbone': {
+            //loads dependencies first
+            deps: ['jquery', 'underscore'],
+            //custom export name, this would be lowercase otherwise
+            exports: 'Backbone'
+        },
+        //'backbone.localStorage': {
+        //    deps: ['backbone'],
+        //    exports: 'Backbone'
+        //}
+        'bootstrap': {
+          deps: ['jquery'],
+          exports: 'bootstrap'
+        }
+    },
+    paths: {
+        // Libs
+        'jquery': '../lib/jquery/jquery',
+        'underscore': '../lib/underscore/underscore',
+        'backbone': '../lib/backbone/backbone',
+        'mustache': '../lib/mustache/mustache',
+        //'backbone.localStorage': 'lib/backbone.localStorage'
 
-// views
-head.load("js/view/login.js")
+        // Views
+        'LoginView': 'view/login',
 
-// routes
-head.load("js/router.js")
-
-// app
-head.ready(function() {
-    console .log("Lauching application ...");
-
-    window.loginView = new mpw.Views.LoginView();
-
-    window.router = new mpw.Router.RoutesManager({});
-
-    Backbone.history .start();
+        // Core 
+        'App'              : 'app',
+        'Router'           : 'router',
+    },
 });
 
+require(['App'], function(App, Client) {
+    App.initialize();
+});

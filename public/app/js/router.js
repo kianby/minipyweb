@@ -1,17 +1,20 @@
-var mpw = ( function (mpw) {
-    mpw.Router.RoutesManager = Backbone.Router.extend({
+define('Router', [
+  'jquery',
+  'underscore',
+  'backbone',
+  'LoginView'
+], function($, _, Backbone, LoginView) {
+
+    var AppRouter = Backbone.Router.extend({
+        routes: {
+            "": "main"
+        },
         initialize : function (args) {
         },
-        routes : {
-            "hello" : "hello",
-            "" : "root",
-        },
-        root : function () {
-            loginView.render("S'authentifier", {"firstname":"Yannic", "lastname":"Arnoux"});
-        },
-        hello : function () {
-            $(".hero-unit > h1").html("Hello World !!!");
+        main: function(){
+            var view = new LoginView();
+            view.render("S'authentifier", {"firstname":"Yannic", "lastname":"Arnoux"});
         }
     });
-    return mpw;
-}(mpw));
+    return AppRouter;
+});

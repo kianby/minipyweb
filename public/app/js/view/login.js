@@ -1,16 +1,23 @@
-var mpw = ( function (mpw) {
-    mpw.Views.LoginView = Backbone.View.extend({
+define('LoginView', [
+    'jquery',
+    'backbone',
+    'mustache',
+], function($, Backbone, Mustache) {
+
+    var LoginView = Backbone = Backbone.View.extend({
         el : $("#login_form"),
         initialize : function () {
+            this.template = $("#login_form_template").html();
+        /*
             var that = this ;
-            this .template = $("#login_form_template").html();
             //on vérifie si pas déjà authentifié
             $.ajax({type:"GET", url:"/alreadyauthenticated",
                 error: function (err){ 
                     console.log(err); 
+                    that.render("???",{firstName:"John", lastName:"Doe"});
                 },
                 success: function (dataFromServer) {
-                    if ( dataFromServer .firstName) {
+                    if ( dataFromServer.firstName) {
                         that.render("Bienvenue",dataFromServer);
                     }
                     else {
@@ -18,9 +25,10 @@ var mpw = ( function (mpw) {
                     }
                 }
             })
+        */
         },
         render : function (message, user) {
-            var renderedContent = Mustache.to_html( this.template, {
+            var renderedContent = Mustache.to_html(this.template, {
                 message : message,
                 firstName : user ? user.firstName : "",
                 lastName : user ? user.lastName : ""
@@ -64,5 +72,5 @@ var mpw = ( function (mpw) {
             })
         }
     });
-    return mpw;
-}(mpw));
+    return LoginView;
+});

@@ -11,10 +11,6 @@ require.config({
             //custom export name, this would be lowercase otherwise
             exports: 'Backbone'
         },
-        //'backbone.localStorage': {
-        //    deps: ['backbone'],
-        //    exports: 'Backbone'
-        //}
         'bootstrap': {
           deps: ['jquery'],
           exports: 'bootstrap'
@@ -23,13 +19,14 @@ require.config({
     paths: {
         // Libs
         'jquery': '../lib/jquery/jquery',
+        'jquery.storageapi': '../lib/jquery/jquery.storageapi',
         'underscore': '../lib/underscore/underscore',
         'backbone': '../lib/backbone/backbone',
         'mustache': '../lib/mustache/mustache',
-        //'backbone.localStorage': 'lib/backbone.localStorage'
 
         // Views
-        'LoginView': 'view/login',
+        'LoginView'        : 'view/login',
+        'MainView'         : 'view/main',
 
         // Core 
         'App'              : 'app',

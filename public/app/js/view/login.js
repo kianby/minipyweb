@@ -1,38 +1,17 @@
 define('LoginView', [
     'jquery',
+    'jquery.storageapi',
     'backbone',
     'mustache',
-], function($, Backbone, Mustache) {
+], function($, JqueryStorageApi, Backbone, Mustache) {
 
-    var LoginView = Backbone = Backbone.View.extend({
-        el : $("#login_form"),
+    var LoginView = Backbone.View.extend({
+        el : $("#container"),
         initialize : function () {
-            this.template = $("#login_form_template").html();
-        /*
-            var that = this ;
-            //on vérifie si pas déjà authentifié
-            $.ajax({type:"GET", url:"/alreadyauthenticated",
-                error: function (err){ 
-                    console.log(err); 
-                    that.render("???",{firstName:"John", lastName:"Doe"});
-                },
-                success: function (dataFromServer) {
-                    if ( dataFromServer.firstName) {
-                        that.render("Bienvenue",dataFromServer);
-                    }
-                    else {
-                        that.render("???",{firstName:"John", lastName:"Doe"});
-                    }
-                }
-            })
-        */
+            this.template = $("#login_template").html();
         },
-        render : function (message, user) {
-            var renderedContent = Mustache.to_html(this.template, {
-                message : message,
-                firstName : user ? user.firstName : "",
-                lastName : user ? user.lastName : ""
-            });
+        render : function (message) {
+            var renderedContent = Mustache.to_html(this.template, {message: message});
             this.$el.html(renderedContent);
         },
         events : {
@@ -40,23 +19,25 @@ define('LoginView', [
             "click .btn-inverse" : "onClickBtnLogoff"
         },
         onClickBtnLogin : function (domEvent) {
-            var fields = $("#blog_login_form :input")
+            var fields = $("#login_form :input")
                     , that = this;
+            userinfo = {'username': fields[0].value, 'password': fields[1].value};
+            console.log(userinfo);
             $.ajax({
                 type:"POST",
-                url:"/authenticate",
-                data : { email : fields[0].value, password : fields[1].value } ,
+                url:"/login",
+                data : JSON.stringify(userinfo),
+                contentType: "application/json",
                 dataType : "json",
-                error: function (err){ console .log(err); },
+                error: function (err){ console.log(err); },
                 success: function (dataFromServer) {
-                    if ( dataFromServer .infos) {
-                        that.render( dataFromServer .infos);
+                    if (dataFromServer.token) {
+                        // save login info in local storage
+                        storage = $.localStorage;
+                        storage.set('mpw.login', {'user': fields[0].value, 'token': dataFromServer.token})
+                        that.render(dataServer.token);
                     } else {
-                        if ( dataFromServer .error) {
-                            that.render( dataFromServer .error);
-                        } else {
-                            that.render("Bienvenue",dataFromServer);
-                        }
+                        that.render();
                     }
                 }
             });

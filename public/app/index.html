@@ -11,25 +11,27 @@
 <body>
 
     <!-- /*======= Barre de navigation  =======*/ -->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">MiniPyWeb</a>
+    <script type="text/template" id="main_template">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">MiniPyWeb</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </script>
 
     <!-- /*======= Formulaire d’authentification =======*/ -->
-    <script type="text/template" id="login_form_template" >
-        <h3>Login :</h3>
-        <input name="email" type="text" placeholder="email"/><br>
-        <input name="password" type="password" placeholder="password"/><br>
-        <a href="#" class="btn btn-primary">Login</a>
-        <a href="#" class="btn btn-inverse">Logoff</a><br>
-        <b>{{message}} {{firstName}} {{lastName}}</b>
+    <script type="text/template" id="login_template">
+        <form class="container" id="login_form" >
+            <h3>Login :</h3>
+            <input name="username" type="text" placeholder="username"/><br>
+            <input name="password" type="password" placeholder="password"/><br>
+            <a href="#" class="btn btn-primary">Login</a>
+            <a href="#" class="btn btn-inverse">Logoff</a><br>
+            <p>{{ message }}</p>
+        </form>
     </script>
-    <form class="container" id="login_form" >
-    </form>
 
     <!-- /*======= Application principale =======*/ -->
     <div id="container">Loading...</div>

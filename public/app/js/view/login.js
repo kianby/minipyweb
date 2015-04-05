@@ -16,7 +16,6 @@ define('LoginView', [
         },
         events : {
             "click .btn-primary" : "onClickBtnLogin",
-            "click .btn-inverse" : "onClickBtnLogoff"
         },
         onClickBtnLogin : function (domEvent) {
             var fields = $("#login_form :input")
@@ -35,22 +34,12 @@ define('LoginView', [
                         // save login info in local storage
                         storage = $.localStorage;
                         storage.set('mpw.login', {'user': fields[0].value, 'token': dataFromServer.token})
-                        that.render(dataServer.token);
+                        window.location.replace('#');
                     } else {
-                        that.render();
+                        console.log('missing token in server response');
                     }
                 }
             });
-        },
-        onClickBtnLogoff : function () {
-            var that = this ;
-            $.ajax({type:"GET", url:"/logoff",
-                error: function (err){ console .log(err); },
-                success: function (dataFromServer) {
-                    console.log(dataFromServer);
-                    that.render("???",{firstName:"John", lastName:"Doe"});
-                }
-            })
         }
     });
     return LoginView;

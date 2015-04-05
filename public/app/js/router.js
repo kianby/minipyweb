@@ -4,25 +4,27 @@ define('Router', [
   'underscore',
   'backbone',
   'LoginView',
-  'MainView'
-], function($, JqueryStorageApi, _, Backbone, LoginView, MainView) {
+  'MainView',
+  'ErrorView'
+], function($, JqueryStorageApi, _, Backbone, LoginView, MainView, ErrorView) {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
             "": "main",
             "login": "login",
+            "logoff": "logoff",
+            "error/:type": "anyerror"
         },
         initialize : function (args) {
             console.log('init router');
             this.loginView = new LoginView();
             this.mainView = new MainView();
+            this.errorView = new ErrorView();
         },
         main: function(){
-            console.log('storage');
             storage = $.localStorage;
             if( storage.isEmpty('mpw.login')){
-                this.loginView.render();
-                this.navigate('login');
+                this.navigate('login', true);
             }
             else {
                 this.mainView.render();
@@ -30,7 +32,17 @@ define('Router', [
         },
         login: function() {
             this.loginView.render();
-        }
+        },
+        logoff: function() {
+            storage = $.localStorage;
+            if( storage.isSet('mpw.login')) { 
+                storage.remove('mpw.login');
+            }
+            this.navigate('', true);
+        },
+        anyerror: function(type) {
+            this.errorView.render(type);
+        },
     });
     return AppRouter;
 });

@@ -10,6 +10,7 @@
 </head>
 <body>
 
+    <!-- split main view: header, content, footer -->
     <!-- /*======= Barre de navigation  =======*/ -->
     <script type="text/template" id="main_template">
         <nav class="navbar navbar-default">
@@ -19,7 +20,21 @@
                 </div>
             </div>
         </nav>
+        <p><a href="#logoff">Logoff</a></p>
     </script>
+
+    <!-- /*======= Page d'erreur =======*/ -->
+    <script type="text/template" id="error_template">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">MiniPyWeb</a>
+                </div>
+            </div>
+        </nav>
+        <p><strong>{{ message }}</strong></p>
+    </script>
+
 
     <!-- /*======= Formulaire d’authentification =======*/ -->
     <script type="text/template" id="login_template">
@@ -28,8 +43,6 @@
             <input name="username" type="text" placeholder="username"/><br>
             <input name="password" type="password" placeholder="password"/><br>
             <a href="#" class="btn btn-primary">Login</a>
-            <a href="#" class="btn btn-inverse">Logoff</a><br>
-            <p>{{ message }}</p>
         </form>
     </script>
 

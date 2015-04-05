@@ -27,6 +27,7 @@ require.config({
         // Views
         'LoginView'        : 'view/login',
         'MainView'         : 'view/main',
+        'ErrorView'        : 'view/error',
 
         // Core 
         'App'              : 'app',

@@ -17,6 +17,7 @@ module.exports = function(grunt) {
                     'jquery/jquery.storageapi.js': 'jQuery-Storage-API/jquery.storageapi.js',
                     'jquery/jquery.storageapi.min.js': 'jQuery-Storage-API/jquery.storageapi.min.js',
                     'requirejs/require.js': 'requirejs/require.js',
+                    'requirejs/text.js': 'requirejs-text/text.js',
                     'mustache/mustache.js': 'mustache/mustache.js',
                     'mustache/mustache.min.js': 'mustache/mustache.min.js',
                     'underscore/underscore.js': 'underscore/underscore.js',

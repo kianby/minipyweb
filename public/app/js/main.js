@@ -23,6 +23,7 @@ require.config({
         'underscore': '../lib/underscore/underscore',
         'backbone': '../lib/backbone/backbone',
         'mustache': '../lib/mustache/mustache',
+        'text': '../lib/requirejs/text',
 
         // Views
         'LoginView'        : 'view/login',

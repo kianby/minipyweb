@@ -5,7 +5,7 @@ define('ErrorView', [
 ], function($, Backbone, Mustache) {
 
     var ErrorView = Backbone.View.extend({
-        el : $("#container"),
+        el : $("#content"),
         initialize : function () {
             this.template = $("#error_template").html();
         },

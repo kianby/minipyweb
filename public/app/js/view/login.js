@@ -6,7 +6,7 @@ define('LoginView', [
 ], function($, JqueryStorageApi, Backbone, Mustache) {
 
     var LoginView = Backbone.View.extend({
-        el : $("#container"),
+        el : $("#content"),
         initialize : function () {
             this.template = $("#login_template").html();
         },

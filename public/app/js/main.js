@@ -26,6 +26,7 @@ require.config({
         'text': '../lib/requirejs/text',
 
         // Views
+        'HeaderView'       : 'view/header',
         'LoginView'        : 'view/login',
         'MainView'         : 'view/main',
         'ErrorView'        : 'view/error',

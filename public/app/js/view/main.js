@@ -2,16 +2,15 @@ define('MainView', [
     'jquery',
     'backbone',
     'mustache',
-    'text!template/navbar.html'
-], function($, Backbone, Mustache, navbarTpl) {
+    'text!template/main.html'
+], function($, Backbone, Mustache, mainTpl) {
 
     var MainView = Backbone.View.extend({
-        el : $("#container"),
+        el : $("#content"),
         initialize : function () {
-            //this.template = $("#main_template").html();
         },
         render : function () {
-            var renderedContent = Mustache.to_html(navbarTpl, {});
+            var renderedContent = Mustache.to_html(mainTpl, {});
             this.$el.html(renderedContent);
         }
     });

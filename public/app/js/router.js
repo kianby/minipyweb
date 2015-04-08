@@ -6,44 +6,51 @@ define('Router', [
   'HeaderView',
   'LoginView',
   'MainView',
-  'ErrorView'
-], function($, JqueryStorageApi, _, Backbone, HeaderView, LoginView, MainView, ErrorView) {
+  'ErrorView',
+  'UserModel',
+], function($, JqueryStorageApi, _, Backbone, HeaderView, LoginView, MainView, ErrorView, UserModel) {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
-            "": "main",
-            "login": "login",
-            "logout": "logout",
-            "error/:type": "anyerror"
+            '': 'main',
+            'login': 'login',
+            'logout': 'logout',
+            'error/:type': 'anyerror'
         },
         initialize : function (args) {
-            console.log('init router');
-            this.headerView = new HeaderView();
-            this.loginView = new LoginView();
+            var storage = $.localStorage;
+            this.userInfo = new UserModel();
+            var that = this;
+            // save user model to local storage
+            this.userInfo.on('change', function() {
+                console.log('save user to local storage');
+                storage.set('mpw.login', {user: that.userInfo.get('user'), token: that.userInfo.get('token')});
+            });
+            this.headerView = new HeaderView({model: this.userInfo});
+            this.loginView = new LoginView({model: this.userInfo});
+            if( storage.isEmpty('mpw.login')){
+                this.userInfo.set({user: '', token:''});
+            } else {
+                var info = storage.get('mpw.login');
+                this.userInfo.set({user: info.user, token: info.token});
+            }
             this.mainView = new MainView();
             this.errorView = new ErrorView();
         },
         main: function(){
             console.log('main');
             var storage = $.localStorage;
-            console.log(storage);
-            if( storage.isEmpty('mpw.login')){
-                this.navigate('login', true);
-            }
-            else {
-                this.headerView.render();
+            if( this.userInfo.get('user')) {
                 this.mainView.render();
+            } else {
+                this.navigate('login', true);
             }
         },
         login: function() {
-            this.headerView.render();
             this.loginView.render();
         },
         logout: function() {
-            storage = $.localStorage;
-            if( storage.isSet('mpw.login')) { 
-                storage.remove('mpw.login');
-            }
+            this.userInfo.set({user:'', token:''});
             this.navigate('', true);
         },
         anyerror: function(type) {

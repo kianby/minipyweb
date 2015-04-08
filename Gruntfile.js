@@ -26,6 +26,7 @@ module.exports = function(grunt) {
                     'backbone/backbone.js': 'backbone/backbone.js',
                     'bootstrap/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
                     'bootstrap/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
+                    'bootstrap/bootstrap.css.map': 'bootstrap/dist/css/bootstrap.css.map',
                     'bootstrap': 'bootstrap/dist/fonts/*',
                 },
             },

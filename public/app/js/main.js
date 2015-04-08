@@ -25,6 +25,8 @@ require.config({
         'mustache': '../lib/mustache/mustache',
         'text': '../lib/requirejs/text',
 
+        // Models
+        'UserModel'        : 'model/user',
         // Views
         'HeaderView'       : 'view/header',
         'LoginView'        : 'view/login',

@@ -1,13 +1,13 @@
 define('LoginView', [
     'jquery',
-    'jquery.storageapi',
     'backbone',
     'mustache',
-], function($, JqueryStorageApi, Backbone, Mustache) {
+], function($, Backbone, Mustache) {
 
     var LoginView = Backbone.View.extend({
         el : $("#content"),
         initialize : function () {
+            _.bindAll(this, 'onClickBtnLogin');
             this.template = $("#login_template").html();
         },
         render : function (message) {
@@ -31,9 +31,7 @@ define('LoginView', [
                 error: function (err){ console.log(err); },
                 success: function (dataFromServer) {
                     if (dataFromServer.token) {
-                        // save login info in local storage
-                        storage = $.localStorage;
-                        storage.set('mpw.login', {'user': fields[0].value, 'token': dataFromServer.token})
+                        that.model.set({user: fields[0].value, token: dataFromServer.token});
                         window.location.replace('#');
                     } else {
                         console.log('missing token in server response');

@@ -1,23 +1,19 @@
 define('HeaderView', [
     'jquery',
-    'jquery.storageapi',
     'backbone',
     'mustache',
     'text!template/navbar.html'
-], function($, JqueryStorageApi, Backbone, Mustache, navbarTpl) {
+], function($, Backbone, Mustache, navbarTpl) {
 
     var HeaderView = Backbone.View.extend({
-        el : $("#header"),
+        el : $('#header'),
         initialize : function () {
+            _.bindAll(this, 'render');
+            this.model.on('change', this.render);
         },
         // use events to render when necessary
         render : function () {
-            var storage = $.localStorage;
-            var user = {};
-            if( !storage.isEmpty('mpw.login')) { 
-              user = storage.get('mpw.login');
-            }
-            var content = Mustache.to_html(navbarTpl, user);
+            var content = Mustache.to_html(navbarTpl, this.model.attributes);
             this.$el.html(content);
         }
     });

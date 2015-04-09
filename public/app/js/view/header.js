@@ -10,6 +10,7 @@ define('HeaderView', [
         initialize : function () {
             _.bindAll(this, 'render');
             this.model.on('change', this.render);
+            this.wireNav();
         },
         // use events to render when necessary
         render : function () {

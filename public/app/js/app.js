@@ -8,6 +8,15 @@ define('App', [
   function initialize() {
     var app = new Router();
 
+    _.extend(Backbone.View.prototype, {
+      wireNav: function() {
+        var that = this;
+        this.$el.find("a[role=nav]").each(function() {
+            var target = $(this).attr('href');
+            that.bind("click", router.navigate(target, true));
+        });
+      }
+    });
     Backbone.history.start();
   }
 

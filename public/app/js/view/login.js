@@ -2,22 +2,24 @@ define('LoginView', [
     'jquery',
     'backbone',
     'mustache',
-], function($, Backbone, Mustache) {
+    'text!template/login.html'
+], function($, Backbone, Mustache, LoginTpl) {
 
     var LoginView = Backbone.View.extend({
         el : $("#content"),
         initialize : function () {
             _.bindAll(this, 'onClickBtnLogin');
-            this.template = $("#login_template").html();
         },
         render : function (message) {
-            var renderedContent = Mustache.to_html(this.template, {message: message});
+            console.log('render login : ' + message);
+            var renderedContent = Mustache.to_html(LoginTpl, {message: message});
             this.$el.html(renderedContent);
         },
         events : {
             "click .btn-primary" : "onClickBtnLogin",
         },
-        onClickBtnLogin : function (domEvent) {
+        onClickBtnLogin : function (e) {
+            e.preventDefault();
             var fields = $("#login_form :input")
                     , that = this;
             userinfo = {'username': fields[0].value, 'password': fields[1].value};
@@ -28,13 +30,17 @@ define('LoginView', [
                 data : JSON.stringify(userinfo),
                 contentType: "application/json",
                 dataType : "json",
-                error: function (err){ console.log(err); },
+                error: function (err){ 
+                  console.log('error sur POST');
+                  that.render('Mauvais mot de passe');
+                },
                 success: function (dataFromServer) {
                     if (dataFromServer.token) {
+                        console.log('update user info model');
                         that.model.set({user: fields[0].value, token: dataFromServer.token});
-                        window.location.replace('#');
                     } else {
                         console.log('missing token in server response');
+                        that.render('Mauvais mot de passe');
                     }
                 }
             });

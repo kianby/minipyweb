@@ -1,16 +1,12 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            {{#user}}
-            <a class="navbar-brand" role="nav" href="main">MiniPyWeb</a>
-            {{/user}}
-            {{^user}}
-            <a class="navbar-brand" role="nav" href="login">MiniPyWeb</a>
-            {{/user}}
+            <a class="navbar-brand" role="nav" href="">MiniPyWeb</a>
         </div>
         {{#user}}
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="truc">test</a></li>
             <li><a role="nav" href="logout">Déconnexion {{user}}</a></li>
           </ul>
         </div>

@@ -6,32 +6,18 @@ define('App', [
 ], function($, _, Backbone, Router) {
 
   function initialize() {
-    var app = new Router();
 
-    _.extend(Backbone.View.prototype, {
-      wireNav: function() {
-        var that = this;
-        this.$el.find("a[role=nav]").each(function() {
-            var target = $(this).attr('href');
-            that.bind("click", router.navigate(target, true));
-        });
-      }
-    });
+    // add navigateTo method to Backbone views
+    Backbone.View.prototype.navigateTo = function(e) {
+        console.log('catch click ' + $(e.target).attr('href'));
+        Backbone.trigger('nav:route', $(e.target).attr('href'));
+        e.preventDefault();
+    };
+
+    var router = new Router();
+
     Backbone.history.start();
   }
-
-  $.ajaxSetup({
-    statusCode: {
-        401: function(){
-            // Redirect to the login page.
-            window.location.replace('/#login');
-        },
-        403: function() {
-            // 403 -- Access denied
-            window.location.replace('/#error/denied');
-        }
-    }
-  });
 
   // TODO: error handling with window.onerror
   // http://www.slideshare.net/nzakas/enterprise-javascript-error-handling-presentation

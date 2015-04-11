@@ -19,9 +19,9 @@ require.config({
     paths: {
         // Libs
         'jquery': '../lib/jquery/jquery',
-        'jquery.storageapi': '../lib/jquery/jquery.storageapi',
         'underscore': '../lib/underscore/underscore',
         'backbone': '../lib/backbone/backbone',
+        'localstorage': '../lib/backbone/backbone.localStorage',
         'mustache': '../lib/mustache/mustache',
         'text': '../lib/requirejs/text',
 

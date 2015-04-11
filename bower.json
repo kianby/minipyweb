@@ -6,7 +6,7 @@
     "backbone": "~1.1.2",
     "bootstrap": "~3.3.4",
     "mustache": "~2.0.0",
-    "jQuery-Storage-API": "~1.7.3",
-    "requirejs-text": "~2.0.14"
+    "requirejs-text": "~2.0.14",
+    "backbone.localstorage": "~1.1.16"
   }
 }

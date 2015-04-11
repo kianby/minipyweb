@@ -11,7 +11,6 @@ define('LoginView', [
             _.bindAll(this, 'onClickBtnLogin');
         },
         render : function (message) {
-            console.log('render login : ' + message);
             var renderedContent = Mustache.to_html(LoginTpl, {message: message});
             this.$el.html(renderedContent);
         },
@@ -19,7 +18,6 @@ define('LoginView', [
             "click .btn-primary" : "onClickBtnLogin",
         },
         onClickBtnLogin : function (e) {
-            e.preventDefault();
             var fields = $("#login_form :input")
                     , that = this;
             userinfo = {'username': fields[0].value, 'password': fields[1].value};
@@ -44,6 +42,8 @@ define('LoginView', [
                     }
                 }
             });
+            e.preventDefault();
+            console.log('exit from login submit');
         }
     });
     return LoginView;

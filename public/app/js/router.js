@@ -1,6 +1,5 @@
 define('Router', [
   'jquery',
-  'jquery.storageapi',
   'underscore',
   'backbone',
   'HeaderView',
@@ -8,7 +7,7 @@ define('Router', [
   'MainView',
   'ErrorView',
   'UserModel',
-], function($, JqueryStorageApi, _, Backbone, HeaderView, LoginView, MainView, ErrorView, UserModel) {
+], function($, _, Backbone, HeaderView, LoginView, MainView, ErrorView, UserModel) {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
@@ -18,37 +17,38 @@ define('Router', [
             'error/:type': 'anyerror'
         },
         initialize : function (args) {
-            console.log('### router initialize');
-            var storage = $.localStorage;
-            this.userInfo = new UserModel();
+            console.log('### router initialization ####');
+
+            // retrieve user info from local storage
+            this.userInfo = new UserModel({id:1});
+            this.userInfo.fetch();
+            console.log('read user info ' + JSON.stringify(this.userInfo));
+
+            // create singleton views
             this.headerView = new HeaderView({model: this.userInfo});
             this.loginView = new LoginView({model: this.userInfo});
 
-            // set user info model
-            if( storage.isEmpty('mpw.login')){
-                this.userInfo.set({user: '', token:''});
-            } else {
-                var info = storage.get('mpw.login');
-                this.userInfo.set({user: info.user, token: info.token});
-            }
             this.mainView = new MainView();
             this.errorView = new ErrorView();
 
             // save user model to local storage on model change
             var that = this;
             this.userInfo.on('change', function() {
-                console.log('save user info to local storage: user=' + that.userInfo.get('user'));
-                storage.set('mpw.login', {user: that.userInfo.get('user'), token: that.userInfo.get('token')});
-                if( that.userInfo.get('user')) {
-                  that.navigate('main', true);
-                } else {
-                  that.navigate('login', true);
-                }
+                console.log('save user info ' + JSON.stringify(that.userInfo));
+                that.userInfo.save();
+                Backbone.trigger('nav:route', '');
             });
  
+            this.listenTo(Backbone, 'nav:route', this.navigateToAndTrigger);
+
         },
-        main: function(){
+        main: function() {
+          if (this.userInfo.get('user')) {
+            console.log('render main view');
             this.mainView.render();
+          } else {
+            this.navigateToAndTrigger('login');
+          }
         },
         login: function() {
             this.loginView.render();
@@ -59,6 +59,10 @@ define('Router', [
         anyerror: function(type) {
             this.errorView.render(type);
         },
+        navigateToAndTrigger: function(url) {
+          console.log('navigate and trigger: ' + url);
+          this.navigate(url, {trigger: true});
+        }
     });
     return AppRouter;
 });

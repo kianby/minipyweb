@@ -34,5 +34,6 @@ def setup(db):
 
     # create admin user if user table is empty
     if User.select().count() == 0:
-        admin_user = User(username='admin', password=hash('admin'))
+        admin_user = User(username='admin', password=hash('admin'),
+                          displayname='Admin')
         admin_user.save()

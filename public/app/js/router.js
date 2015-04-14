@@ -6,21 +6,24 @@ define('Router', [
   'LoginView',
   'MainView',
   'ErrorView',
-  'UserModel',
-], function($, _, Backbone, HeaderView, LoginView, MainView, ErrorView, UserModel) {
+  'UserView',
+  'UserInfoModel',
+  'UserCollection',
+], function($, _, Backbone, HeaderView, LoginView, MainView, ErrorView, UserView, UserInfoModel, UserCollection) {
 
     var AppRouter = Backbone.Router.extend({
         routes: {
             '': 'main',
             'login': 'login',
             'logout': 'logout',
-            'error/:type': 'anyerror'
+            'error/:type': 'anyerror',
+            'users': 'users'
         },
         initialize : function (args) {
             console.log('### router initialization ####');
 
             // retrieve user info from local storage
-            this.userInfo = new UserModel({id:1});
+            this.userInfo = new UserInfoModel({id:1});
             this.userInfo.fetch();
             console.log('read user info ' + JSON.stringify(this.userInfo));
 
@@ -58,6 +61,9 @@ define('Router', [
         },
         anyerror: function(type) {
             this.errorView.render(type);
+        },
+        users: function() {
+            new UserView({collection: UserCollection});
         },
         navigateToAndTrigger: function(url) {
           console.log('navigate and trigger: ' + url);

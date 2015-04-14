@@ -26,12 +26,18 @@ require.config({
         'text': '../lib/requirejs/text',
 
         // Models
+        'UserInfoModel'    : 'model/user_info',
         'UserModel'        : 'model/user',
+
+        // Collections
+        'UserCollection'   : 'collection/users',
+
         // Views
         'HeaderView'       : 'view/header',
         'LoginView'        : 'view/login',
         'MainView'         : 'view/main',
         'ErrorView'        : 'view/error',
+        'UserView'         : 'view/user',
 
         // Core 
         'App'              : 'app',

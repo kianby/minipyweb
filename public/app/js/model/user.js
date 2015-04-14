@@ -1,15 +1,15 @@
 define('UserModel', [
     'jquery',
     'backbone',
-    'localstorage',
-], function($, Backbone, localstorage) {
+], function($, Backbone) {
 
   var UserModel = Backbone.Model.extend({
     defaults: {
-      user: '',
-      token: ''
+      username: '',
+      password: '',
+      displayname: '',
+      email: ''
     },
-    localStorage: new Backbone.LocalStorage("mpw.userinfo")
   });
   return UserModel;
 });

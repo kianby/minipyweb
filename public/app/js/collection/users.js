@@ -5,8 +5,8 @@ define('UserCollection', [
 ], function($, Backbone, UserModel) {
 
   var UserCollection  = Backbone.Collection.extend({
+    url: '/api/users',
     model : UserModel,
-    root: '/api/users'
   });
   return UserCollection;
 });

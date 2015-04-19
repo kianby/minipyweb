@@ -7,10 +7,30 @@ define('UserView', [
 
     var UserView = Backbone.View.extend({
         el : $("#content"),
-        initialize : function () {
+        initialize : function (options) {
+          this.options = options || {};
           _.bindAll(this, 'render');
-          this.collection.fetch();
-          this.render();
+          console.log(this.collection);
+          console.log(this.options.userInfo.get('user'));
+          console.log(this.options.userInfo.get('token'));
+          var that = this;
+          this.collection.fetch({
+            headers: {
+              'User': this.options.userInfo.get('user'),
+              'Token': this.options.userInfo.get('token')
+            },
+            success: function(){
+              console.log('collection loaded');
+              _.each(that.collection, function(u) {
+                console.log(u);
+                console.log(u.displayName);
+              });
+              that.render();
+            },
+            error: function() {
+              console.log('collection loading failed');
+            }
+          });
         },
         render : function () {
             console.log('model attrs = ' + this.collection.toJSON());

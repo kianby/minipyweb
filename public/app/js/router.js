@@ -63,7 +63,9 @@ define('Router', [
             this.errorView.render(type);
         },
         users: function() {
-            new UserView({collection: UserCollection});
+            console.log('render user view');
+            var userList = new UserCollection();
+            new UserView({collection: userList, userInfo: this.userInfo});
         },
         navigateToAndTrigger: function(url) {
           console.log('navigate and trigger: ' + url);

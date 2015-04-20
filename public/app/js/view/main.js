@@ -1,16 +1,17 @@
 define('MainView', [
     'jquery',
     'backbone',
-    'mustache',
+    'handlebars',
     'text!template/main.html'
-], function($, Backbone, Mustache, mainTpl) {
+], function($, Backbone, Handlebars, MainTpl) {
 
     var MainView = Backbone.View.extend({
         el : $("#content"),
         initialize : function () {
+          this.template = Handlebars.compile(MainTpl);
         },
         render : function () {
-            var renderedContent = Mustache.to_html(mainTpl, {});
+            var renderedContent = this.template({});
             this.$el.html(renderedContent);
         }
     });

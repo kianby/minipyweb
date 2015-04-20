@@ -1,6 +1,6 @@
 <div class="container">
-  {{#users}}
-  <p><strong>* {{username}}</strong></p>
-  <p>* {{displayname}}</p>
-  {{/users}
+  {{#each []}}
+  <p><strong>{{this.username}}</strong></p>
+  <p>{{this.displayname}}</p>
+  {{/each}}
 </div>

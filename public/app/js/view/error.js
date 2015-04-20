@@ -1,20 +1,21 @@
 define('ErrorView', [
     'jquery',
     'backbone',
-    'mustache',
+    'handlebars',
     'text!template/error.html'
-], function($, Backbone, Mustache, ErrorTpl) {
+], function($, Backbone, Handlebars, ErrorTpl) {
 
     var ErrorView = Backbone.View.extend({
         el : $("#content"),
         initialize : function () {
+          this.template = Handlebars.compile(ErrorTpl);
         },
         render : function (error) {
             var msg = 'Erreur de page';
             if( error == 'denied') {
                 msg = 'Permission insuffisante pour accéder à cette page';
             }
-            var renderedContent = Mustache.to_html(ErrorTpl, {message:msg});
+            var renderedContent = this.template({message:msg});
             this.$el.html(renderedContent);
         }
     });

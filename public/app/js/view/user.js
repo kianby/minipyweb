@@ -1,18 +1,19 @@
 define('UserView', [
     'jquery',
     'backbone',
-    'mustache',
+    'handlebars',
     'text!template/user.html'
-], function($, Backbone, Mustache, UserTpl) {
+], function($, Backbone, Handlebars, UserTpl) {
 
     var UserView = Backbone.View.extend({
         el : $("#content"),
         initialize : function (options) {
           this.options = options || {};
           _.bindAll(this, 'render');
-          console.log(this.collection);
-          console.log(this.options.userInfo.get('user'));
-          console.log(this.options.userInfo.get('token'));
+          this.template = Handlebars.compile(UserTpl);
+          //console.log(this.collection);
+          //console.log(this.options.userInfo.get('user'));
+          //console.log(this.options.userInfo.get('token'));
           var that = this;
           this.collection.fetch({
             headers: {
@@ -21,9 +22,8 @@ define('UserView', [
             },
             success: function(){
               console.log('collection loaded');
-              _.each(that.collection, function(u) {
-                console.log(u);
-                console.log(u.displayName);
+              _(that.collection.models).each(function(item) {
+                console.log('model: ' + item.get('displayname'));
               });
               that.render();
             },
@@ -33,8 +33,10 @@ define('UserView', [
           });
         },
         render : function () {
-            console.log('model attrs = ' + this.collection.toJSON());
-            var renderedContent = Mustache.to_html(UserTpl, this.collection.toJSON());
+            var context = {
+              items: this.collection.models
+            };
+            var renderedContent = this.template(this.collection.toJSON());
             this.$el.html(renderedContent);
         }
     });

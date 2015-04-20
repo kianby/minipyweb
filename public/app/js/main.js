@@ -22,7 +22,7 @@ require.config({
         'underscore': '../lib/underscore/underscore',
         'backbone': '../lib/backbone/backbone',
         'localstorage': '../lib/backbone/backbone.localStorage',
-        'mustache': '../lib/mustache/mustache',
+        'handlebars': '../lib/handlebars/handlebars',
         'text': '../lib/requirejs/text',
 
         // Models

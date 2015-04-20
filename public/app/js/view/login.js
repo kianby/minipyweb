@@ -1,17 +1,18 @@
 define('LoginView', [
     'jquery',
     'backbone',
-    'mustache',
+    'handlebars',
     'text!template/login.html'
-], function($, Backbone, Mustache, LoginTpl) {
+], function($, Backbone, Handlebars, LoginTpl) {
 
     var LoginView = Backbone.View.extend({
         el : $("#content"),
         initialize : function () {
+            this.template = Handlebars.compile(LoginTpl);
             _.bindAll(this, 'onClickBtnLogin');
         },
         render : function (message) {
-            var renderedContent = Mustache.to_html(LoginTpl, {message: message});
+            var renderedContent = this.template({message: message});
             this.$el.html(renderedContent);
         },
         events : {

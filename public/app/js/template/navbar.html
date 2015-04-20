@@ -3,14 +3,14 @@
         <div class="navbar-header">
             <a class="navbar-brand" role="nav" href="">MiniPyWeb</a>
         </div>
-        {{#user}}
+        {{#if user}}
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a role="nav" href="users">Utilisateurs</a></li>
             <li><a role="nav" href="logout">Déconnexion {{user}}</a></li>
           </ul>
         </div>
-        {{/user}}
+        {{/if}}
     </div>
 </nav>
 
